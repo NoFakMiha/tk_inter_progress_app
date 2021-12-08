@@ -1,6 +1,52 @@
 {
-    "By car": {"TO DO 1": ["- make money", "-buy car"], "TODO 4": ["bla blablabababa"],
-               "TODO 5": ["Kuj nekaj", "Theo gusi", "asdadadasdasdsdsadsad"]},
-    "By second car": {"TO DO 2": ["- try out new", "-buy car third"]},
-    "By thirdd car": {"TO DO 3": ["- dirb bake", "-blabla"]}
+  "By car": {
+    "TO DO 1": [
+      "- make money",
+      "-buy car"
+    ],
+    "TODO 4": [
+      "bla blablabababa"
+    ],
+    "TODO 5": [
+      "Kuj nekaj",
+      "Theo gusi",
+      "asdadadasdasdsdsadsad"
+    ]
+  },
+  "By second car": {
+    "TO DO 2": [
+      "- try out new",
+      "-buy car third"
+    ]
+  },
+  "By thirdd car": {
+    "TO DO 3": [
+      "- dirb bake",
+      "-blabla"
+    ],
+    "TO DO IS FUKCINE NICE": [],
+    "to dela tak kot tteba": []
+  },
+  "Miha asdsads": {
+    "Novak": []
+  },
+  "Novak Je car": {
+    "asdasd": [],
+    "blue": [],
+    "drek": [],
+    "nice": [],
+    "full ql": []
+  },
+  "Neue dach": {
+    "Novak": []
+  },
+  "Miha novak": {
+    "HOW TO ADD ALOT OF ": [],
+    "NEW TASK IST": [],
+    "AGASD ASDS": [],
+    "ADSADSADSADSAD": []
+  },
+  "Novak": {
+    "NOVAK": []
+  }
 }

@@ -14,6 +14,11 @@ class Database:
             self.projects = json.load(file)
 
     def save_new_project(self, name):
-        self.projects.append({f"{name}":{"":{[]}}})
+        self.projects[f"{name}"]={}
         with open("data.json", "w") as file:
-            json.dump(self.projects,separators=(","))
+            json.dump(self.projects,fp=file, indent=2)
+
+    def save_new_label_to_project(self,data,key):
+        self.projects[f"{key}"][f"{data}"]=[]
+        with open("data.json", "w") as file:
+            json.dump(self.projects,fp=file, indent=2)
