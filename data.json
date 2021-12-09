@@ -1,22 +1,27 @@
 {
   "By car": {
     "TO DO 1": [
-      "- make money",
-      "-buy car"
+      "Predrago",
+      "TEst",
+      "zakaj pa to nedela",
+      "Kupi neki avot",
+      "Testiraj spoed ",
+      "TEstiraj sped"
     ],
     "TODO 4": [
-      "bla blablabababa"
+      "bla blablabababa",
+      "fuckin takon",
+      "adsadasds"
     ],
     "TODO 5": [
-      "Kuj nekaj",
-      "Theo gusi",
-      "asdadadasdasdsdsadsad"
+      "Speet"
     ]
   },
   "By second car": {
     "TO DO 2": [
       "- try out new",
-      "-buy car third"
+      "-buy car third",
+      "Novak"
     ]
   },
   "By thirdd car": {
@@ -24,7 +29,7 @@
       "- dirb bake",
       "-blabla"
     ],
-    "TO DO IS FUKCINE NICE": [],
+    "TO DO IS FUKCINE NICE": "Miha",
     "to dela tak kot tteba": []
   },
   "Miha asdsads": {
@@ -47,6 +52,26 @@
     "ADSADSADSADSAD": []
   },
   "Novak": {
-    "NOVAK": []
+    "NOVAK": [
+      "Hallo",
+      "TEst",
+      "Faca"
+    ]
+  },
+  "Hallo": {
+    "NEW TAKS": [
+      "Predrago",
+      "TEST"
+    ],
+    "HALLO": [],
+    "DREK": []
+  },
+  "Mario": {
+    "HALOO": [],
+    "ADSASDSA": [],
+    "ADSAD": []
+  },
+  "Testing": {
+    "MIHA ": "Predrago"
   }
 }

@@ -22,3 +22,8 @@ class Database:
         self.projects[f"{key}"][f"{data}"]=[]
         with open("data.json", "w") as file:
             json.dump(self.projects,fp=file, indent=2)
+
+    def save_new_todo_task(self, data,project, to_do_key):
+        self.projects[f"{project}"][f"{to_do_key}"].append(f"{str(data)}")
+        with open("data.json", "w") as file:
+            json.dump(self.projects,fp=file, indent=2)
