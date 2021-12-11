@@ -14,6 +14,7 @@ class App():
         self.style = Style("solar")
         self.window.minsize(250,250)
         self.window.geometry("900x750")
+        self.window.bind("<Configure>", self.update_windows)
 
         self.main_frame = Frame(self.window, width=150, height=300)
         self.main_frame.grid_propagate(False)
@@ -22,6 +23,13 @@ class App():
         self.label_frame = Frame(self.window,width=self.window.winfo_screenwidth(), height=300)
         self.label_frame.grid_propagate(False)
         self.label_frame.grid(column=1,row=0)
+
+        self.progress_bar_frame = Frame(self.window)
+        self.progress_bar_frame.grid(column=0, row=1)
+
+        self.progress_bar = ttk.Progressbar(self.progress_bar_frame, orient=HORIZONTAL, length=100,
+                                            mode='indeterminate')
+        self.progress_bar.grid(column=0, row=0)
 
 
 
@@ -118,7 +126,9 @@ class App():
         self.data.delete_todo_task(project_key, self.all_labels[label], todo)
         self.projecting_labels_and_task(self.project_key)
 
-
+    def update_windows(self, event):
+        self.main_frame.configure(width=150, height=self.window.winfo_height() - 30)
+        self.label_frame.configure(width=self.window.winfo_width(), height=self.window.winfo_height() - 30)
 
     #Adding ad saving lables
     def adding_and_saving_new_task(self,event):
