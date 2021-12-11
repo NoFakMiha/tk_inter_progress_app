@@ -23,6 +23,8 @@ class App():
         self.label_frame.grid_propagate(False)
         self.label_frame.grid(column=1,row=0)
 
+
+
         # USER INTERFACE
 
         # Separating line horizontal ad new project
@@ -92,10 +94,33 @@ class App():
         self.entry_task_for_lable.grid_forget()
         self.label_for_new_task.grid(column=len(self.how_many_columns) + 1, row=0)
 
-    def displaying_delete_todo_task(self, event, column,row):
-        self.label_delite.grid(column=column,row=row, sticky ="en")
+    def displaying_show_position_lable(self, event, column, row):
+        self.all_show_positions_lables[column - 1][row - 1].grid(column=column, row=row, sticky ="E")
 
-    # Adding ad saving lables
+    def covering_shgow_position_lable(self, event, column, row):
+
+        self.all_show_positions_lables[column][row].grid_forget()
+
+
+    def deleting_projects(self, value, project_key):
+        self.data.deleting_project(project_key)
+        self.projecting_projects()
+
+
+    def deliting_lables(self, event, project_key, lable):
+
+        print(self.all_labels[lable])
+        self.data.delete_label(project_key,self.all_labels[lable])
+        self.projecting_labels_and_task(self.project_key)
+
+
+    def deleting_to_do(self, event, project_key, label, todo):
+        self.data.delete_todo_task(project_key, self.all_labels[label], todo)
+        self.projecting_labels_and_task(self.project_key)
+
+
+
+    #Adding ad saving lables
     def adding_and_saving_new_task(self,event):
         self.new_label_data = self.entry_task_for_lable.get()
         self.entry_task_for_lable.delete(0,END)
@@ -106,26 +131,44 @@ class App():
     def adding_and_saving_new_todos(self, event,one_of_the_entry_to_do,label_key,postion):
         self.todo_data = one_of_the_entry_to_do.get()
         one_of_the_entry_to_do.delete(0,END)
+
         #print(label_key)
         self.todo_keys = []
         for key in self.data.projects[label_key]:
             self.todo_keys.append(key)
-
-
-        self.data.save_new_todo_task(data=self.todo_data,project=label_key,
+        self.data.save_new_todo_task(data=self.todo_data.lower(),project=label_key,
                                      to_do_key=self.todo_keys[postion])
-
         self.projecting_labels_and_task(label_key)
-
-
 
 
 
     # projecting the UI
     def projecting_projects(self):
+        self.lable_children = self.main_frame.winfo_children()
+
+        for children in self.lable_children:
+            children.destroy()
+
+        # Adding new project label
+        self.label_add_new_project = Label(self.main_frame, text="NEW PROJECT", width=20, bg="#bc951a")
+        self.label_add_new_project.grid(column=0, row=0)
+        # Adding new project entry
+        self.entry_new_project_str = StringVar()
+        self.entry_new_project = Entry(self.main_frame, textvariable=self.entry_new_project_str, bg="#bc951a",
+                                       fg="white", bd=1)
+        # Biding the widgets
+        self.label_add_new_project.bind("<Enter>", func=self.hiding_add_project_label)
+        self.entry_new_project.bind("<Leave>", func=self.displaying_add_project_label)
+        self.entry_new_project.bind("<Return>", func=self.saving_new_project)
+
+        self.children_label_frame = self.label_frame.winfo_children()
+        for children in self.children_label_frame:
+            children.destroy()
+
         for count,value in enumerate(self.data.projects):
-          self.buton_project = Button(self.main_frame, text=value, width=20, command=partial(self.projecting_labels_and_task, value))
-          self.buton_project.grid(column=0,row=count+1)
+            self.buton_project = Button(self.main_frame, text=value, width=20, command=partial(self.projecting_labels_and_task, key=value))
+            self.buton_project.bind("<Button-2>", partial(self.deleting_projects, project_key=value))
+            self.buton_project.grid(column=0,row=count+1)
 
 
 
@@ -140,23 +183,42 @@ class App():
             self.how_many_columns = []
             self.how_many_rows = []
             self.all_todos_entrys = []
+            self.all_show_positions_lables = []
+            self.all_todos = []
+            self.all_labels =[]
             self.project_key = key
+
             for count_1,value in enumerate(self.data.projects[key]):
                 self.label_task = Label(self.label_frame, text=value)
+                self.label_task.bind("<Button-2>", partial(self.deliting_lables, project_key=key, lable=count_1 ))
                 self.label_task.grid(column=count_1 + 1, row=0, padx=10 )
+
                 self.how_many_columns.append(count_1)
+                self.all_labels.append(value)
                 self.how_many_rows_objects=[]
+                self.show_positions_lables_objects =[]
+                self.all_todos_objects= []
+
+                self.all_show_positions_lables.append(self.show_positions_lables_objects)
                 for count_2, value in enumerate(self.data.projects[key][value]):
                     self.label_todo = Label(self.label_frame,text=value)
-                    self.label_todo.bind("<Enter>", partial(self.displaying_delete_todo_task, column=count_1+1,
+                    self.label_todo.bind("<Enter>", partial(self.displaying_show_position_lable, column=count_1 + 1,
                                                             row=count_2+1))
-                    self.label_todo.bind("<Button-1>", )
+                    self.label_todo.bind("<Leave>", partial(self.covering_shgow_position_lable, column=count_1, row=count_2))
+                    self.label_todo.bind("<Button-2>",
+                                         partial(self.deleting_to_do, project_key=self.project_key,
+                                                 todo=value, label=count_1))
+
+                    self.all_todos_objects.append(self.label_todo)
                     self.label_todo.grid(column=count_1+1,row=count_2+1, padx=10)
-                    self.label_delite = Label(self.label_frame, text="-", bg="#bc951a")
+
+                    self.label_show_positon = Label(self.label_frame, text="<", bg="#bc951a")
+
+                    self.show_positions_lables_objects.append(self.label_show_positon)
                     self.how_many_rows_objects.append(count_2)
                 self.how_many_rows.append(self.how_many_rows_objects)
 
-                    # Eding entry fot todos
+                # Eding entry fot todos
                 self.entry_adding_todos = Entry(self.label_frame)
                 self.all_todos_entrys.append(self.entry_adding_todos)
 
@@ -170,7 +232,7 @@ class App():
             # Cheking if they are  alredy any lables if not than puting in in first column and row
             self.children = self.label_frame.winfo_children()
             if len(self.children) <= 1:
-               self.projecting_label_and_entry_for_tasks(column=len(self.how_many_columns) + 1)
+                self.projecting_label_and_entry_for_tasks(column=len(self.how_many_columns) + 1)
             else:
                 self.projecting_label_and_entry_for_tasks(column=len(self.how_many_columns) + 1)
 

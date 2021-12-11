@@ -24,6 +24,23 @@ class Database:
             json.dump(self.projects,fp=file, indent=2)
 
     def save_new_todo_task(self, data,project, to_do_key):
-        self.projects[f"{project}"][f"{to_do_key}"].append(f"{str(data)}")
+        self.projects[f"{project}"][f"{to_do_key}"].append(f"- {str(data)}")
         with open("data.json", "w") as file:
             json.dump(self.projects,fp=file, indent=2)
+
+
+    def deleting_project(self, project_key):
+        del self.projects[f"{project_key}"]
+        with open("data.json", "w") as file:
+            json.dump(self.projects, fp=file, indent=2)
+
+    def delete_label(self, project_key,lable):
+        del self.projects[f"{project_key}"][f"{lable}"]
+        with open("data.json", "w") as file:
+            json.dump(self.projects, fp=file, indent=2)
+
+
+    def delete_todo_task(self, project_key,label,todo):
+        self.projects[f"{project_key}"][f"{label}"].remove(todo)
+        with open("data.json", "w") as file:
+            json.dump(self.projects, fp=file, indent=2)
